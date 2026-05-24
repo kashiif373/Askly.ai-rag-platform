@@ -565,7 +565,8 @@ import CommandPalette from "./Commandpalette";
 import SettingsPanel from "./Settingspanel";
 import WelcomeScreen from "./Welcomescreen";
 
-const API = "http://127.0.0.1:8000";
+// const API = "http://127.0.0.1:8000";
+const API = process.env.REACT_APP_API_URL;
 
 const MODELS = [
   { id: "gpt-4o", label: "GPT-4o", badge: "Fast" },
