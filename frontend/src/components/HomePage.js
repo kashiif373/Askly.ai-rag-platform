@@ -641,9 +641,7 @@ export default function HomePage({ user, token, onLogout }) {
 
   // useEffect(() => { fetchDocuments(); }, []);
 
-  useEffect(() => {
-  fetchDocuments();
-}, [fetchDocuments]);
+  
 
 
   const notify = (msg, type = "success") => {
@@ -679,6 +677,10 @@ export default function HomePage({ user, token, onLogout }) {
   } catch {}
 
 }, [token]);
+
+useEffect(() => {
+  fetchDocuments();
+}, [fetchDocuments]);
 
 
   const deleteDocument = async (filename) => {
