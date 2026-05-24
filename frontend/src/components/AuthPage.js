@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./AuthPage.css";
 
-const API = "http://127.0.0.1:8000";
+const API = "const API = process.env.REACT_APP_API_URL;";
 
 /* ─── Inline SVG Icons ─────────────────────── */
 const IconMail = () => (
@@ -343,7 +343,7 @@ export function RegisterPage({ onRegisterSuccess, onGoLogin }) {
   const [success,  setSuccess]  = useState("");
 
   /* current "step" for the progress indicator */
-  const step = !name.trim() ? 1 : !email.includes("@") ? 2 : !password ? 3 : 4;
+  //const step = !name.trim() ? 1 : !email.includes("@") ? 2 : !password ? 3 : 4;
 
   const strength = getStrength(password);
 

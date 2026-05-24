@@ -28,15 +28,45 @@ export default function CommandPalette({ chats, documents, onClose, onSelectChat
     ? documents.filter(d => d.name.toLowerCase().includes(q)).slice(0, 3)
     : [];
 
+  // const handleCommand = (action) => {
+  //   switch(action) {
+  //     case "newChat":       onNewChat(); break;
+  //     case "openSettings":  onOpenSettings(); break;
+  //     case "exportChat":    onExportChat(); break;
+  //     case "clearChat":     onClearChat(); break;
+  //     case "toggleTheme":   onToggleTheme(); break;
+  //   }
+  // };
+      
+
   const handleCommand = (action) => {
-    switch(action) {
-      case "newChat":       onNewChat(); break;
-      case "openSettings":  onOpenSettings(); break;
-      case "exportChat":    onExportChat(); break;
-      case "clearChat":     onClearChat(); break;
-      case "toggleTheme":   onToggleTheme(); break;
-    }
-  };
+  switch(action) {
+
+    case "newChat":
+      onNewChat();
+      break;
+
+    case "openSettings":
+      onOpenSettings();
+      break;
+
+    case "exportChat":
+      onExportChat();
+      break;
+
+    case "clearChat":
+      onClearChat();
+      break;
+
+    case "toggleTheme":
+      onToggleTheme();
+      break;
+
+    default:
+      break;
+  }
+};
+
 
   return (
     <div className="command-overlay" onClick={onClose}>

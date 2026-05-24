@@ -597,7 +597,7 @@ export default function HomePage({ user, token, onLogout }) {
   const [fontSize, setFontSize] = useState("md");
   const [temperature, setTemperature] = useState(0.7);
   const [messageTokens, setMessageTokens] = useState(0);
-  const [pinnedChats, setPinnedChats] = useState([]);
+  // const [pinnedChats, setPinnedChats] = useState([]);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
   const [notification, setNotification] = useState(null);
@@ -639,21 +639,47 @@ export default function HomePage({ user, token, onLogout }) {
     return () => window.removeEventListener("keydown", handler);
   }, []);
 
-  useEffect(() => { fetchDocuments(); }, []);
+  // useEffect(() => { fetchDocuments(); }, []);
+
+  useEffect(() => {
+  fetchDocuments();
+}, [fetchDocuments]);
+
 
   const notify = (msg, type = "success") => {
     setNotification({ msg, type });
     setTimeout(() => setNotification(null), 3000);
   };
 
-  const fetchDocuments = async () => {
-    try {
-      const res = await axios.get(`${API}/documents`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setDocuments(res.data.documents.map((d, i) => ({ id: i, name: d, size: null, uploadedAt: Date.now() })));
-    } catch {}
-  };
+  // const fetchDocuments = async () => {
+  //   try {
+  //     const res = await axios.get(`${API}/documents`, {
+  //       headers: { Authorization: `Bearer ${token}` }
+  //     });
+  //     setDocuments(res.data.documents.map((d, i) => ({ id: i, name: d, size: null, uploadedAt: Date.now() })));
+  //   } catch {}
+  // };
+
+
+  const fetchDocuments = useCallback(async () => {
+  try {
+    const res = await axios.get(`${API}/documents`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+
+    setDocuments(
+      res.data.documents.map((d, i) => ({
+        id: i,
+        name: d,
+        size: null,
+        uploadedAt: Date.now()
+      }))
+    );
+
+  } catch {}
+
+}, [token]);
+
 
   const deleteDocument = async (filename) => {
     try {
@@ -750,11 +776,16 @@ export default function HomePage({ user, token, onLogout }) {
       let done = false;
       let streamed = "";
 
-      while (!done) {
-        const { value, done: dr } = await reader.read();
-        done = dr;
-        streamed += decoder.decode(value || new Uint8Array());
-        setChats(p => p.map(c => c.id === activeChatId
+    while (!done) {
+
+  const { value, done: dr } = await reader.read();
+
+  done = dr;
+
+  streamed += decoder.decode(value || new Uint8Array());
+
+  // eslint-disable-next-line
+  setChats(p => p.map(c => c.id === activeChatId
           ? { ...c, messages: [...updated.slice(0, -1), { ...aiMsg, text: streamed }] }
           : c
         ));
