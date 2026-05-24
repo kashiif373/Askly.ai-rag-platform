@@ -1,0 +1,12 @@
+# Backend
+backend/venv/
+backend/__pycache__/
+backend/chroma_db/
+backend/uploads/
+backend/.env
+
+# Frontend
+frontend/node_modules/
+
+# Logs
+*.log
