@@ -36,6 +36,8 @@ from models import (
     User
 )
 
+Base.metadata.create_all(bind=engine)
+
 from auth import (
     hash_password,
     verify_password,
