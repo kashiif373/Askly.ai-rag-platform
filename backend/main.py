@@ -97,6 +97,7 @@ def get_db():
 
 
 app.add_middleware(
+
     CORSMiddleware,
 
     allow_origins=[
@@ -104,15 +105,16 @@ app.add_middleware(
         "http://localhost:3000",
 
         "https://askly-ai-rag-platform.vercel.app"
+
     ],
 
     allow_credentials=True,
 
     allow_methods=["*"],
 
-    allow_headers=["*"],
-)
+    allow_headers=["*"]
 
+)
 
 
 # Upload Folder
