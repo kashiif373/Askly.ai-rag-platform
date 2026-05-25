@@ -584,7 +584,9 @@ const PERSONAS = [
 
 export default function HomePage({ user, onLogout }) {
 
-  const token = localStorage.getItem("token");
+ const getAuthHeaders = () => ({
+  Authorization: `Bearer ${localStorage.getItem("token")}`
+});
   const [theme, setTheme] = useState("dark");
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [file, setFile] = useState(null);
@@ -664,8 +666,8 @@ export default function HomePage({ user, onLogout }) {
   const fetchDocuments = useCallback(async () => {
   try {
     const res = await axios.get(`${API}/documents`, {
-      headers: { Authorization: `Bearer ${token}` }
-    });
+  headers: getAuthHeaders()
+});
 
     setDocuments(
       res.data.documents.map((d, i) => ({
@@ -678,7 +680,7 @@ export default function HomePage({ user, onLogout }) {
 
   } catch {}
 
-}, [token]);
+}, []);
 
 useEffect(() => {
   fetchDocuments();
@@ -688,7 +690,7 @@ useEffect(() => {
   const deleteDocument = async (filename) => {
     try {
       await axios.delete(`${API}/delete-document/${filename}`, {
-        headers: { Authorization: `Bearer ${token}` }
+     headers: getAuthHeaders()
       });
       fetchDocuments();
       notify("Document deleted");
@@ -703,7 +705,7 @@ useEffect(() => {
       setIsUploading(true);
       setUploadProgress(0);
       await axios.post(`${API}/upload`, formData, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: getAuthHeaders(),
         onUploadProgress: (e) => {
           setUploadProgress(Math.round((e.loaded / e.total) * 100));
         }
@@ -773,7 +775,7 @@ useEffect(() => {
       setLoading(true);
       const res = await fetch(`${API}/ask?question=${encodeURIComponent(text)}`, {
         method: "POST",
-        headers: { Authorization: `Bearer ${token}` }
+       headers: getAuthHeaders()
       });
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
