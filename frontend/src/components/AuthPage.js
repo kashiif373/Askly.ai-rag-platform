@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./AuthPage.css";
 
-const API = "const API = process.env.REACT_APP_API_URL;";
+const API = process.env.REACT_APP_API_URL;
 
 /* ─── Inline SVG Icons ─────────────────────── */
 const IconMail = () => (
@@ -118,32 +118,52 @@ export function LoginPage({ onLoginSuccess, onGoRegister }) {
     if (!password)      { setError("Please enter your password."); return; }
 
     try {
-      setLoading(true);
-      const res  = await fetch(`${API}/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim(), password }),
-      });
-      const data = await res.json();
 
-      if (data.error) {
-        setError(
-          data.error === "Invalid email"
-            ? "No account found with that email address."
-            : data.error === "Invalid password"
-            ? "Incorrect password. Please try again."
-            : data.error
-        );
-      } else {
-        localStorage.setItem("access_token", data.access_token);
-        localStorage.setItem("user", JSON.stringify(data.user));
-        onLoginSuccess(data.user, data.access_token);
-      }
-    } catch {
-      setError("Cannot reach the server. Please make sure the backend is running.");
-    } finally {
-      setLoading(false);
-    }
+  setLoading(true);
+
+  const response = await fetch(`${API}/register`, {
+
+    method: "POST",
+
+    headers: {
+      "Content-Type": "application/json"
+    },
+
+    body: JSON.stringify({
+      name,
+      email,
+      password
+    })
+
+  });
+
+  const data = await response.json();
+
+  if (data.error) {
+
+    setError(
+      data.error === "Email already exists"
+        ? "An account with this email already exists. Try signing in instead."
+        : data.error
+    );
+
+  } else {
+
+    setSuccess("🎉 Account created successfully! Redirecting to sign in…");
+
+    setTimeout(() => onRegisterSuccess(), 1600);
+
+  }
+
+} catch {
+
+  setError("Cannot reach the server. Please make sure the backend is running.");
+
+} finally {
+
+  setLoading(false);
+
+}
   };
 
   const isLight = theme === "light";
@@ -361,11 +381,27 @@ export function RegisterPage({ onRegisterSuccess, onGoLogin }) {
 
     try {
       setLoading(true);
-      const res  = await fetch(`${API}/register`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: name.trim(), email: email.trim(), password }),
-      });
+      // const res  = await fetch(`${API}/register`, {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({ name: name.trim(), email: email.trim(), password }),
+      // });
+
+const response = await fetch(`${API}/register`, {
+
+  method: "POST",
+
+  headers: {
+    "Content-Type": "application/json"
+  },
+
+  body: JSON.stringify({
+    name,
+    email,
+    password
+  })
+});
+
       const data = await res.json();
 
       if (data.error) {
