@@ -34,9 +34,7 @@ const SUGGESTIONS_BY_PERSONA = {
   ],
 };
 
-export default function WelcomeScreen({ personas, activePersona, onPersonaChange, onPromptSelect }) {
-  const suggestions = SUGGESTIONS_BY_PERSONA[activePersona] ?? SUGGESTIONS_BY_PERSONA.assistant;
-
+export default function WelcomeScreen() {
   return (
     <div className="welcome">
 
@@ -47,41 +45,6 @@ export default function WelcomeScreen({ personas, activePersona, onPersonaChange
           Upload PDFs to your knowledge base, then ask anything.<br />
           Switch personas and models for different results.
         </p>
-      </div>
-
-      {/* Persona selector */}
-      <div style={{width:"100%"}}>
-        <div style={{fontSize:11,fontWeight:600,letterSpacing:"0.08em",textTransform:"uppercase",color:"var(--text3)",marginBottom:10,paddingLeft:2}}>
-          Choose AI Persona
-        </div>
-        <div className="persona-grid">
-          {personas.map(p => (
-            <button
-              key={p.id}
-              className={`persona-card${activePersona === p.id ? " persona-card--active" : ""}`}
-              onClick={() => onPersonaChange(p.id)}
-            >
-              <div className="persona-icon">{p.icon}</div>
-              <div className="persona-name">{p.label}</div>
-              <div className="persona-desc">{PERSONA_DESCS[p.id]}</div>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Prompt suggestions */}
-      <div style={{width:"100%"}}>
-        <div style={{fontSize:11,fontWeight:600,letterSpacing:"0.08em",textTransform:"uppercase",color:"var(--text3)",marginBottom:10,paddingLeft:2}}>
-          Try asking…
-        </div>
-        <div className="prompt-grid">
-          {suggestions.map((s, i) => (
-            <button key={i} className="prompt-card" onClick={() => onPromptSelect(s.text)}>
-              <div className="prompt-card__label">{s.label}</div>
-              <div className="prompt-card__text">{s.text}</div>
-            </button>
-          ))}
-        </div>
       </div>
 
     </div>
