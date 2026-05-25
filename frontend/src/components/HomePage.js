@@ -582,7 +582,9 @@ const PERSONAS = [
   { id: "writer",   label: "Writer",    icon: "◇", prompt: "You are a professional writer. Be eloquent and precise." },
 ];
 
-export default function HomePage({ user, token, onLogout }) {
+export default function HomePage({ user, onLogout }) {
+
+  const token = localStorage.getItem("token");
   const [theme, setTheme] = useState("dark");
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [file, setFile] = useState(null);
