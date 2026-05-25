@@ -1,33 +1,27 @@
-from datetime import datetime
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 from jose import jwt
+
 from passlib.context import CryptContext
 
-# Secret Key
-SECRET_KEY = "enterprise_ai_secret"
+SECRET_KEY = "MYSECRETKEY"
 
-# Algorithm
 ALGORITHM = "HS256"
 
-# Token Expiry
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24
 
-# Password Hashing
 pwd_context = CryptContext(
-    schemes=["bcrypt"],
+    schemes=["pbkdf2_sha256"],
     deprecated="auto"
 )
 
-# Hash Password
 def hash_password(password: str):
 
     return pwd_context.hash(password)
 
-# Verify Password
 def verify_password(
-    plain_password,
-    hashed_password
+    plain_password: str,
+    hashed_password: str
 ):
 
     return pwd_context.verify(
@@ -35,17 +29,12 @@ def verify_password(
         hashed_password
     )
 
-# Create JWT Token
 def create_access_token(data: dict):
 
     to_encode = data.copy()
 
-    expire = (
-        datetime.utcnow() +
-        timedelta(
-            minutes=
-            ACCESS_TOKEN_EXPIRE_MINUTES
-        )
+    expire = datetime.utcnow() + timedelta(
+        minutes=ACCESS_TOKEN_EXPIRE_MINUTES
     )
 
     to_encode.update({
