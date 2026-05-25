@@ -122,12 +122,13 @@ export function LoginPage({ onLoginSuccess, onGoRegister }) {
   return (
 
     <div className="auth-root">
+      <div className="auth-split-layout">
+        <div className="auth-split-left">
+          <div className="auth-card">
 
-      <div className="auth-card">
-
-        <h1 className="auth-heading">
-          Welcome Back 👋
-        </h1>
+            <h1 className="auth-heading">
+              Welcome Back 👋
+            </h1>
 
         <p className="auth-sub">
           Login to continue
@@ -234,8 +235,38 @@ export function LoginPage({ onLoginSuccess, onGoRegister }) {
 
         </form>
 
-      </div>
+          </div>
+        </div>
 
+        <div className="auth-split-right">
+          <div className="auth-help-card">
+            <h2 className="auth-help-card__title">Welcome Guide</h2>
+            <ul className="auth-help-list">
+              <li className="auth-help-item">
+                <div className="auth-help-icon">🚀</div>
+                <div className="auth-help-text-wrap">
+                  <strong>Quick Access</strong>
+                  <span>Sign in to pick up right where you left off.</span>
+                </div>
+              </li>
+              <li className="auth-help-item">
+                <div className="auth-help-icon">🔒</div>
+                <div className="auth-help-text-wrap">
+                  <strong>Secure Platform</strong>
+                  <span>Your data is protected with enterprise-grade security.</span>
+                </div>
+              </li>
+              <li className="auth-help-item">
+                <div className="auth-help-icon">⚡</div>
+                <div className="auth-help-text-wrap">
+                  <strong>Super Fast</strong>
+                  <span>Experience lightning fast speeds across all features.</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -349,12 +380,13 @@ export function RegisterPage({
   return (
 
     <div className="auth-root">
+      <div className="auth-split-layout">
+        <div className="auth-split-left">
+          <div className="auth-card">
 
-      <div className="auth-card">
-
-        <h1 className="auth-heading">
-          Create Account ✨
-        </h1>
+            <h1 className="auth-heading">
+              Create Account ✨
+            </h1>
 
         <p className="auth-sub">
           Register to continue
@@ -527,8 +559,38 @@ export function RegisterPage({
 
         </form>
 
-      </div>
+          </div>
+        </div>
 
+        <div className="auth-split-right">
+          <div className="auth-help-card">
+            <h2 className="auth-help-card__title">Why Join Us?</h2>
+            <ul className="auth-help-list">
+              <li className="auth-help-item">
+                <div className="auth-help-icon">✨</div>
+                <div className="auth-help-text-wrap">
+                  <strong>Getting Started</strong>
+                  <span>Create an account in seconds and unlock all features.</span>
+                </div>
+              </li>
+              <li className="auth-help-item">
+                <div className="auth-help-icon">🤝</div>
+                <div className="auth-help-text-wrap">
+                  <strong>Community Driven</strong>
+                  <span>Join thousands of other users on our platform.</span>
+                </div>
+              </li>
+              <li className="auth-help-item">
+                <div className="auth-help-icon">💡</div>
+                <div className="auth-help-text-wrap">
+                  <strong>Smart Tools</strong>
+                  <span>Access exclusive tools designed to boost your productivity.</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
